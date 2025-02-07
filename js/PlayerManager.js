@@ -4,8 +4,8 @@
  * @since 2025-02-07
  */
 
-const ACCELERATION = 0.1;
-const MAX_SPEED = 5;
+const ACCELERATION = 0.3;
+const MAX_SPEED = 15;
 const DECELERATION = 0.1;
 
 let player = {
@@ -19,16 +19,17 @@ let directionY = 0;
 
 function movePlayer() {
   // acceleration
-  player.velocityX += directionX * ACCELERATION;
-  player.velocityY += directionY * ACCELERATION;
+  player.velocityX += directionX * ACCELERATION * deltaTime;
+  player.velocityY += directionY * ACCELERATION * deltaTime;
 
   // max speed
-  player.velocityX = Math.min(Math.max(player.velocityX, -MAX_SPEED), MAX_SPEED);
-  player.velocityY = Math.min(Math.max(player.velocityY, -MAX_SPEED), MAX_SPEED);
+  const maxSpeed = MAX_SPEED * deltaTime;
+  player.velocityX = Math.min(Math.max(player.velocityX, -maxSpeed), maxSpeed);
+  player.velocityY = Math.min(Math.max(player.velocityY, -maxSpeed), maxSpeed);
 
   // deceleration
-  player.velocityX += (directionX === 0 ? -player.velocityX * DECELERATION : 0);
-  player.velocityY += (directionY === 0 ? -player.velocityY * DECELERATION : 0);
+  player.velocityX += (directionX === 0 ? -player.velocityX * DECELERATION * deltaTime : 0);
+  player.velocityY += (directionY === 0 ? -player.velocityY * DECELERATION * deltaTime : 0);
 
   // move player
   player.x += player.velocityX;
