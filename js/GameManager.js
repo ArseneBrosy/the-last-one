@@ -17,7 +17,7 @@ function tick() {
 
 setInterval(() => {
   deltaTime = DEFAULT_FPS / frames;
-  deltaTime = Math.min(deltaTime, 4); // if the windows is closed for a long time
+  deltaTime = Math.min(deltaTime, 1); // if the windows is closed for a long time
   frames = 0;
 }, 1000);
 

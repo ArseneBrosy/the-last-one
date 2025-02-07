@@ -7,12 +7,16 @@
 const ACCELERATION = 0.3;
 const MAX_SPEED = 15;
 const DECELERATION = 0.1;
+const JUMP_FORCE = 10;
+const GRAVITY = 0.3;
 
 let player = {
   x: 0,
   y: 0,
+  z: 0,
   velocityX: 0,
   velocityY: 0,
+  velocityZ: 0,
 }
 let directionX = 0;
 let directionY = 0;
@@ -31,9 +35,19 @@ function movePlayer() {
   player.velocityX += (directionX === 0 ? -player.velocityX * DECELERATION * deltaTime : 0);
   player.velocityY += (directionY === 0 ? -player.velocityY * DECELERATION * deltaTime : 0);
 
+  // gravity
+  player.velocityZ -= player.z > 0 ? GRAVITY : 0;
+
   // move player
   player.x += player.velocityX;
   player.y += player.velocityY;
+  player.z += player.velocityZ;
+
+  // ground
+  if (player.z <= 0) {
+    player.z = 0;
+    player.velocityZ = 0;
+  }
 }
 
 document.addEventListener('keydown', (e) => {
@@ -55,6 +69,12 @@ document.addEventListener('keydown', (e) => {
     directionY++;
   }
   directionY = Math.min(Math.max(directionY, -1), 1);
+  //endregion
+
+  //region Jump
+  if (e.code === 'Space' && player.z === 0) {
+    player.velocityZ = JUMP_FORCE;
+  }
   //endregion
 });
 

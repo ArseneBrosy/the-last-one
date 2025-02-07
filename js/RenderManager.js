@@ -11,5 +11,8 @@ const ctx = canvas.getContext("2d");
 
 function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillRect(player.x, player.y, 100, 100);
+  ctx.fillStyle = '#cdcdcd';
+  ctx.fillRect(player.x + 20, player.y + 90, 60, 20);
+  ctx.fillStyle = '#006d9f';
+  ctx.fillRect(player.x, player.y - player.z, 100, 100);
 }
